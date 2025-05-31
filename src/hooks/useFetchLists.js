@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLists } from "../redux/features/listsSlice";
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLists } from '../redux/features/listsSlice';
 
 const useFetchLists = () => {
   const dispatch = useDispatch();

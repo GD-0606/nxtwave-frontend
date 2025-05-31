@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.div`
   display: flex;
@@ -19,10 +19,12 @@ export const ListsGrid = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
 export const ErrorMessage = styled.p`
   color: #dc2626;
   margin-top: 8px;
 `;
+
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;

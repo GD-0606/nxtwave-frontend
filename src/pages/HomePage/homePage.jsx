@@ -1,51 +1,28 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ButtonsContainer,
-  ErrorMessage,
-  Header,
-  ListsGrid,
-  PageTitle,
-} from "./styles";
-import Button from "../../components/Button/button";
-import { ListContainer } from "../../components/ListContainer/listContainer";
-import {
-  cancelListCreation,
-  moveItem,
-  startListCreation,
-  toggleSelectList,
-  updateListCreation,
-} from "../../redux/features/listsSlice";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ButtonsContainer, ErrorMessage, Header, ListsGrid, PageTitle } from './styles';
+import Button from '../../components/Button/button';
+import { ListContainer } from '../../components/ListContainer/listContainer';
+import { cancelListCreation, moveItem, startListCreation, toggleSelectList, updateListCreation } from '../../redux/features/listsSlice';
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const {
-    lists,
-    selectedLists,
-    status,
-    error,
-    isCreating,
-    newListTitle,
-    mode,
-    tempLists,
-  } = useSelector((state) => state.lists);
-  const [creationError, setCreationError] = useState("");
+  const { lists, selectedLists, mode, tempLists } = useSelector((state) => state.lists);
+  const [creationError, setCreationError] = useState('');
   const handleCreateList = () => {
     if (selectedLists.length !== 2) {
-      setCreationError(
-        "You should select exactly 2 lists to create a new list"
-      );
+      setCreationError('You should select exactly 2 lists to create a new list');
       return;
     }
-    setCreationError("");
+    setCreationError('');
     dispatch(startListCreation());
   };
 
   return (
     <>
-      {" "}
+      {' '}
       <Header>
-        {mode === "view" && (
+        {mode === 'view' && (
           <>
             <PageTitle>List Creation</PageTitle>
             <Button primary onClick={handleCreateList}>
@@ -56,7 +33,7 @@ export default function HomePage() {
       </Header>
       {creationError && <ErrorMessage>{creationError}</ErrorMessage>}
       <ListsGrid>
-        {mode === "view" ? (
+        {mode === 'view' ? (
           [1, 2].map((listNum) => {
             return (
               <ListContainer
@@ -74,22 +51,18 @@ export default function HomePage() {
             {tempLists.map((list, index) => (
               <ListContainer
                 key={list.id}
-                title={
-                  index === 1
-                    ? "List3"
-                    : `List${selectedLists[index === 0 ? 0 : 1]}`
-                }
+                title={index === 1 ? 'List3' : `List${selectedLists[index === 0 ? 0 : 1]}`}
                 items={list.lists}
                 showArrows
                 onMove={(dir, itemId) => {
                   const from = index;
-                  const to = dir === "left" ? index - 1 : index + 1;
+                  const to = dir === 'left' ? index - 1 : index + 1;
                   if (to >= 0 && to <= 2)
                     dispatch(
                       moveItem({
                         fromIndex: from,
                         toIndex: to,
-                        itemId,
+                        itemId
                       })
                     );
                 }}
@@ -98,7 +71,7 @@ export default function HomePage() {
           </>
         )}
       </ListsGrid>
-      {mode === "create" && (
+      {mode === 'create' && (
         <ButtonsContainer>
           <Button
             onClick={() => {
@@ -108,6 +81,7 @@ export default function HomePage() {
             Update
           </Button>
           <Button
+            variant="secondary"
             onClick={() => {
               dispatch(cancelListCreation());
             }}

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   border: 1px solid #ccc;
@@ -8,6 +8,11 @@ export const Container = styled.div`
   height: 500px;
   width: 350px;
   overflow-y: scroll;
+  /* Media queries */
+  @media (max-width: 1280px) {
+    width: 300px;
+    height: 400px;
+  }
 `;
 
 export const Title = styled.h2`
