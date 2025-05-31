@@ -15,11 +15,12 @@ function App() {
 
   if (status === 'loading') return <Loader />;
   if (status === 'failed') return <Errorpage message={error || 'Failed to load data'} onRetry={retry} />;
-  return (
-    <PageContainer>
-      <HomePage />
-    </PageContainer>
-  );
+  if (status === 'succeeded')
+    return (
+      <PageContainer>
+        <HomePage />
+      </PageContainer>
+    );
 }
 
 export default App;
