@@ -15,7 +15,7 @@ const spin = keyframes`
 export const Spinner = styled.div`
   width: 40px;
   height: 40px;
-  border: 4px solid '#007bff';
+  border: 4px solid #007bff;
   border-top-color: transparent;
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;

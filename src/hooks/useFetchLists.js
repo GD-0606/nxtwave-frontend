@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLists } from '../redux/features/listsSlice';
 
@@ -10,9 +10,9 @@ const useFetchLists = () => {
     dispatch(getLists());
   }, [dispatch]);
 
-  const retry = useCallback(() => {
+  const retry = () => {
     dispatch(getLists());
-  }, [dispatch]);
+  };
 
   return { ...listsState, retry };
 };
