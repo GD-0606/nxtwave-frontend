@@ -8,19 +8,11 @@ export const Container = styled.div`
   height: 500px;
   width: 350px;
   overflow-y: scroll;
-
-  /* Hide scrollbar - Chrome, Safari */
   &::-webkit-scrollbar {
     display: none;
   }
-
-  /* Hide scrollbar - Firefox */
   scrollbar-width: none;
-
-  /* Hide scrollbar - IE, Edge */
   -ms-overflow-style: none;
-  
-  /* Media queries */
   @media (max-width: 1280px) {
     width: 300px;
     height: 400px;
