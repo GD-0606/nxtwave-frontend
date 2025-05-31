@@ -27,7 +27,6 @@ export const listsSlice = createSlice({
           state.selectedLists.push(id);
         }
       }
-      console.log(JSON.parse(JSON.stringify(state.selectedLists)));
     },
     startListCreation(state) {
       const first = state.lists.filter((item) => item.list_number === state.selectedLists[0]);
