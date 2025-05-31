@@ -32,3 +32,9 @@ export const ButtonsContainer = styled.div`
   height: 70px;
   align-items: center;
 `;
+
+export const PageContainer = styled.div`
+  padding: 24px;
+  position: relative;
+  min-height: 100vh;
+`;
