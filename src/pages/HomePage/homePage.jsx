@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ButtonsContainer, ErrorMessage, Header, ListsGrid, PageTitle } from './styles';
 import Button from '../../components/Button/button';
@@ -9,6 +9,7 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const { lists, selectedLists, mode, tempLists } = useSelector((state) => state.lists);
   const [creationError, setCreationError] = useState('');
+  const [error, setError] = useState('');
   const handleCreateList = () => {
     if (selectedLists.length !== 2) {
       setCreationError('You should select exactly 2 lists to create a new list');
@@ -17,18 +18,42 @@ export default function HomePage() {
     setCreationError('');
     dispatch(startListCreation());
   };
+  const handleMoveItem = (dir, itemId, index) => {
+    const from = index;
+    const to = dir === 'left' ? index - 1 : index + 1;
+    if (to >= 0 && to <= 2)
+      dispatch(
+        moveItem({
+          fromIndex: from,
+          toIndex: to,
+          itemId
+        })
+      );
+  };
+  const handleUpdateList = () => {
+    if (tempLists[1].lists.length !== 0) {
+      setError('Complete the operations in list3.To see updated list containers.');
+      return;
+    }
+    setError('');
+    dispatch(updateListCreation());
+  };
+  const handleCancelList = () => {
+    setError('');
+    dispatch(cancelListCreation());
+  };
 
   return (
-    <>
+    <React.Fragment>
       {' '}
       <Header>
         {mode === 'view' && (
-          <>
+          <React.Fragment>
             <PageTitle>List Creation</PageTitle>
             <Button primary onClick={handleCreateList}>
               Create a new list
             </Button>
-          </>
+          </React.Fragment>
         )}
       </Header>
       {creationError && <ErrorMessage>{creationError}</ErrorMessage>}
@@ -47,7 +72,7 @@ export default function HomePage() {
             );
           })
         ) : (
-          <>
+          <React.Fragment>
             {tempLists.map((list, index) => (
               <ListContainer
                 key={list.id}
@@ -55,41 +80,22 @@ export default function HomePage() {
                 items={list.lists}
                 showArrows
                 onMove={(dir, itemId) => {
-                  const from = index;
-                  const to = dir === 'left' ? index - 1 : index + 1;
-                  if (to >= 0 && to <= 2)
-                    dispatch(
-                      moveItem({
-                        fromIndex: from,
-                        toIndex: to,
-                        itemId
-                      })
-                    );
+                  handleMoveItem(dir, itemId, index);
                 }}
               />
             ))}
-          </>
+          </React.Fragment>
         )}
       </ListsGrid>
+      {mode === 'create' && error && <ErrorMessage>{error}</ErrorMessage>}
       {mode === 'create' && (
         <ButtonsContainer>
-          <Button
-            onClick={() => {
-              dispatch(updateListCreation());
-            }}
-          >
-            Update
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              dispatch(cancelListCreation());
-            }}
-          >
+          <Button onClick={handleUpdateList}>Update</Button>
+          <Button variant="secondary" onClick={handleCancelList}>
             Cancel
           </Button>
         </ButtonsContainer>
       )}
-    </>
+    </React.Fragment>
   );
 }

@@ -63,21 +63,20 @@ export const listsSlice = createSlice({
       state.mode = 'view';
     },
     updateListCreation(state) {
-      console.log(JSON.parse(JSON.stringify(state.tempLists)));
       let updatedLists = [];
-      updatedLists = updatedLists.concat(
-        state.tempLists[0].lists.map((item) => ({
+      updatedLists = [
+        ...state.tempLists[0].lists.map((item) => ({
           ...item,
           list_number: state.selectedLists[0],
           side: 'right'
         })),
 
-        state.tempLists[2].lists.map((item) => ({
+        ...state.tempLists[2].lists.map((item) => ({
           ...item,
           list_number: state.selectedLists[1],
           side: 'left'
         }))
-      );
+      ];
       state.lists = updatedLists;
       state.tempLists = [];
       state.mode = 'view';
