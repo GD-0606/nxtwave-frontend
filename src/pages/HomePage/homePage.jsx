@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ButtonsContainer, ErrorMessage, Header, ListsGrid, PageTitle } from './styles';
 import Button from '../../components/Button/button';
@@ -42,6 +42,14 @@ export default function HomePage() {
     setError('');
     dispatch(cancelListCreation());
   };
+
+  useEffect(() => {
+    if (tempLists.length > 0 && tempLists[1].lists.length !== 0) {
+      setError('Complete the operations in list3.To see updated list containers.');
+    } else {
+      setError('');
+    }
+  }, [tempLists]);
 
   return (
     <React.Fragment>
