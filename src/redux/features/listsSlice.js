@@ -90,7 +90,6 @@ export const listsSlice = createSlice({
       .addCase(getLists.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.lists = action.payload.lists;
-        state.originalLists = action.payload.lists;
       })
       .addCase(getLists.rejected, (state, action) => {
         state.status = 'failed';
